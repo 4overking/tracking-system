@@ -14,6 +14,7 @@ help:
 
 initialize: ## Start all containers (in background) for development
 	$(docker_compose_bin) up -d --build
+	sleep 5
 	$(docker_compose_bin) exec $(APP_CONTAINER_NAME) composer install
 	$(docker_compose_bin) exec $(APP_CONTAINER_NAME) bin/console doctrine:schema:update --force
 
