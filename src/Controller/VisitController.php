@@ -14,12 +14,12 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * @Route("/api", name="app_visit_create", methods={"POST"})
+ * @Route("/api")
  */
 class VisitController extends AbstractController
 {
     /**
-     * @Route("/visit", name="visit_create", methods={"POST"})
+     * @Route("/visit", name="app_visit_create", methods={"POST"})
      *
      * @ParamConverter("visit", converter="fos_rest.request_body")
      */

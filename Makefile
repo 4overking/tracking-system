@@ -28,4 +28,7 @@ console: ## Container console
 	$(docker_compose_bin) exec $(APP_CONTAINER_NAME) bash
 
 run_tests: ## Container console
+	$(docker_compose_bin) exec $(APP_CONTAINER_NAME) bin/console doctrine:database:drop  --force --if-exists
+	$(docker_compose_bin) exec $(APP_CONTAINER_NAME) bin/console doctrine:database:create
+	$(docker_compose_bin) exec $(APP_CONTAINER_NAME) bin/console doctrine:schema:update --force
 	$(docker_compose_bin) exec $(APP_CONTAINER_NAME) ./vendor/bin/phpunit

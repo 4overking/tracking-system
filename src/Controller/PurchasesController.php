@@ -10,12 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/api")
+ */
 class PurchasesController extends AbstractController
 {
     /**
      * @TODO better to use DTO, but my time is limited
      *
-     * @Route("/purchases", name="app_purchases")
+     * @Route("/purchases", name="app_purchases_list")
      */
     public function index(VisitRepository $repository): Response
     {

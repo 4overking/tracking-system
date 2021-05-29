@@ -29,7 +29,7 @@ class PurchasesControllerTest extends WebTestCase
     public function testSomething(array $expectedResult, array $visits): void
     {
         $this->createVisits($visits);
-        $this->client->request('GET', '/purchases');
+        $this->client->request('GET', '/api/purchases');
         $content = $this->client->getResponse()->getContent();
 
         $this->assertResponseIsSuccessful();
