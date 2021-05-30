@@ -46,7 +46,9 @@ class PurchasesControllerTest extends WebTestCase
             $this->ourServiceFailWithDirectVisitsAndOrganicWinsTheir2Refferal(),
             $this->onlyOrganicVisits(),
             $this->directVisits(),
-            $this->ourServiceSuccessManyCheckouts(), //FYI I'm not sure about this step, no additional information
+            $this->ourServiceSuccessManyCheckouts(), //FYI I'm not sure about this step, no additional information provided
+            $this->twoUsersFromOurServiceSuccess(),
+            $this->twoUsersFromOurServiceWithOneSuccess(),
         ];
     }
 
@@ -419,6 +421,113 @@ class PurchasesControllerTest extends WebTestCase
                     'location' => 'https://shop.com/checkout',
                     'referer' => 'https://shop.com/pay',
                     'date' => '2020-04-04T08:41:14.104000Z', //Pay attention to this date
+                    'is_checkout' => true,
+                ],
+            ],
+        ];
+    }
+
+    private function twoUsersFromOurServiceSuccess(): array
+    {
+        return [
+            [
+                ['client_id' => 'user1', 'partner_link' => 'https://referal.ours.com/?ref=123hexcode'],
+                ['client_id' => 'user2', 'partner_link' => 'https://referal.ours.com/?ref=123hexcode'],
+            ],
+            [
+                [
+                    'client_id' => 'user1',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/products/?id=2',
+                    'referer' => 'https://referal.ours.com/?ref=123hexcode',
+                    'date' => '2018-04-04T08:30:14.104000Z',
+                    'type' => Visit::TYPE_OURS,
+                ],
+                [
+                    'client_id' => 'user1',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/pay',
+                    'referer' => 'https://shop.com/products/?id=2',
+                    'date' => '2018-04-04T08:40:14.104000Z',
+                ],
+                [
+                    'client_id' => 'user1',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/checkout',
+                    'referer' => 'https://shop.com/pay',
+                    'date' => '2018-04-04T08:41:14.104000Z',
+                    'is_checkout' => true,
+                ],
+                [
+                    'client_id' => 'user2',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/products/?id=2',
+                    'referer' => 'https://shop.com/products/?id=100500',
+                    'date' => '2018-04-04T08:30:14.104000Z',
+                    'type' => Visit::TYPE_NONE,
+                ],
+                [
+                    'client_id' => 'user2',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/pay',
+                    'referer' => 'https://shop.com/products/?id=2',
+                    'date' => '2018-04-04T08:40:14.104000Z',
+                ],
+                [
+                    'client_id' => 'user2',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/checkout',
+                    'referer' => 'https://shop.com/pay',
+                    'date' => '2018-04-04T08:41:14.104000Z',
+                    'is_checkout' => true,
+                ],
+            ],
+        ];
+    }
+
+    private function twoUsersFromOurServiceWithOneSuccess(): array
+    {
+        return [
+            [
+                ['client_id' => 'user2', 'partner_link' => 'https://referal.ours.com/?ref=123hexcode'],
+            ],
+            [
+                [
+                    'client_id' => 'user1',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/products/?id=2',
+                    'referer' => 'https://referal.ours.com/?ref=123hexcode',
+                    'date' => '2018-04-04T08:30:14.104000Z',
+                    'type' => Visit::TYPE_OURS,
+                ],
+                [
+                    'client_id' => 'user1',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/pay',
+                    'referer' => 'https://shop.com/products/?id=2',
+                    'date' => '2018-04-04T08:40:14.104000Z',
+                ],
+                [
+                    'client_id' => 'user2',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/products/?id=2',
+                    'referer' => 'https://shop.com/products/?id=100500',
+                    'date' => '2018-04-04T08:30:14.104000Z',
+                    'type' => Visit::TYPE_NONE,
+                ],
+                [
+                    'client_id' => 'user2',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/pay',
+                    'referer' => 'https://shop.com/products/?id=2',
+                    'date' => '2018-04-04T08:40:14.104000Z',
+                ],
+                [
+                    'client_id' => 'user2',
+                    'user_agent' => 'Firefox 59',
+                    'location' => 'https://shop.com/checkout',
+                    'referer' => 'https://shop.com/pay',
+                    'date' => '2018-04-04T08:41:14.104000Z',
                     'is_checkout' => true,
                 ],
             ],
